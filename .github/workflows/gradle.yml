@@ -1,9 +1,14 @@
 name: Java CI with Gradle
 
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
   schedule:
-    - cron: '30 12 * * 3'  # Запуск каждую среду в 12:30
-    - cron: '0 22 * * 5'   # Запуск каждую пятницу в 22:00
+    - cron: '30 12 * * 3'  
+    - cron: '0 22 * * 5'   
 
 permissions:
   contents: read
@@ -13,8 +18,8 @@ jobs:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
-        java-version: [11, 13, 17]  # Можно добавить другие версии, если необходимо
-        platform: [ubuntu-latest, windows-latest, macOS-latest]  # Можно добавить другие платформы, если необходимо
+        java-version: [11, 13, 17]  
+        platform: [ubuntu-latest, windows-latest, macOS-latest]  
 
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +30,9 @@ jobs:
           java-version: ${{ matrix.java-version }}
 
       - name: Build with Gradle
-        run: ./gradlew build  # Или команда для сборки проекта с использованием Gradle
-        
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+        with:
+          arguments: build
+
       - name: Run Tests
-        run: ./gradlew test  # Или команда для запуска тестов
+        run: ./gradlew test  
