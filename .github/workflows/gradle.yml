@@ -26,7 +26,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
       - name: Make Gradlew executable
-        if: ${{ matrix.platform == 'ubuntu-latest' }}
+        if: ${{ matrix.platform == 'ubuntu-latest' || matrix.platform == 'macOS-latest' }}
         run: chmod +x gradlew
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 
