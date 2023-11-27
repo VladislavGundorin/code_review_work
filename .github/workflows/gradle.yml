@@ -1,4 +1,4 @@
-name: Scheduled Builds
+name: Java CI with Gradle
 
 on:
   schedule:
