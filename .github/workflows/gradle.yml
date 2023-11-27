@@ -29,6 +29,7 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           
+      - name: Make Gradlew executable
         run: chmod +x gradlew
 
       - name: Build with Gradle
