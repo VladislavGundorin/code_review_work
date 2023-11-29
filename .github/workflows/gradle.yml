@@ -1,5 +1,4 @@
 name: Java CI with Gradle
-
 on:
   schedule:
     - cron: '30 12 * * 3'  
@@ -16,10 +15,7 @@ jobs:
     strategy:
       matrix:
         java-version: [11, 13, 17]  
-        platform:
-          - { os: ubuntu-latest, java: 11 }
-          - { os: ubuntu-latest, java: 17 }
-          - { os: macOS-latest, java: 11}
+        platform: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,14 +24,12 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
-      - name: Make Gradlew executable
-        if: matrix.platform != 'windows-latest'
+      - name: Make Gradlew executable1
+        if: ${{ matrix.platform == 'ubuntu-latest' || matrix.platform == 'macOS-latest' }}
         run: chmod +x gradlew
-      - name: Make Gradlew executable
-        if: matrix.platform == 'windows-latest'
-        run: |
-          cacls gradlew /t /p everyone:F
-          cacls gradlew.bat /t /p everyone:F
+      - name: Make Gradlew executable2
+        if: ${{ matrix.platform == 'windows-latest'}}
+        run: giveperm [gradlew.bat]
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 
         with:
