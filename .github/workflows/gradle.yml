@@ -22,7 +22,7 @@ jobs:
       - name: ${{ matrix.jdk }}
         uses: actions/setup-java@v3
         with:
-          java-version: JDK 13
+          java-version: JDK 11
           distribution: 'temurin'
       - name: Make Gradlew executable1
         if: ${{ matrix.platform == 'ubuntu-latest' || matrix.platform == 'macOS-latest' }}
