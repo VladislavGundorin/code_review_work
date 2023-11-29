@@ -1,35 +1,36 @@
-name: Java CI with Gradle
+name: CI
+
 on:
-  schedule:
-    - cron: '30 12 * * 3'  
-    - cron: '0 22 * * 5'   
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-permissions:
-  contents: read
+    branches: [ main ]
+  schedule:
+    - cron: '30 12 * * 3' 
+    - cron: '0 22 * * 5' 
+
 jobs:
   build:
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        java-version: [11, 17]  
-        platform: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]  
+        java: [11, 13, 17]
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2  
+
+      - name: Set up JDK ${{ matrix.java }} 
+        uses: actions/setup-java@v2
         with:
-          java-version: ${{ matrix.java-version }}
-          distribution: 'temurin'
-      - name: Make Gradlew executable1
-        if: ${{ matrix.platform == 'ubuntu-latest' || matrix.platform == 'macOS-latest' }}
-        run: chmod +x gradlew
-      - name: Make Gradlew executable2
-        if: ${{ matrix.platform == 'windows-latest'}}
-        run: giveperm [gradlew.bat]
+          java-version: ${{ matrix.java }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew 
+
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 
-        with:
-          arguments: build
+        run: ./gradlew build  
+
+      - name: Run Tests
+        run: ./gradlew test 
