@@ -16,10 +16,11 @@ jobs:
       matrix:
         java-version: [11, 13, 17]  
         platform: [ubuntu-latest, windows-latest, macOS-latest]
+        jdk: [JDK 11, JDK 13, JDK 17]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 11
+      - name: ${{ matrix.jdk }}
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java-version }}
