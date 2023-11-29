@@ -16,14 +16,13 @@ jobs:
       matrix:
         java-version: [11, 13, 17]  
         platform: [ubuntu-latest, windows-latest, macOS-latest]
-        jdk: [JDK 11, JDK 13, JDK 17]
 
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.jdk }}
         uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: JDK 17
           distribution: 'temurin'
       - name: Make Gradlew executable1
         if: ${{ matrix.platform == 'ubuntu-latest' || matrix.platform == 'macOS-latest' }}
