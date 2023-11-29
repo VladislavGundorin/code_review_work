@@ -25,7 +25,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-          distribution: 'adopt' platform: ${{ matrix.platform }}
+          distribution: 'adopt' 
+          platform: ${{ matrix.os }}
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew 
 
