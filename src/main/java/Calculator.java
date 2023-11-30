@@ -11,7 +11,7 @@ public class Calculator {
         if (b != 0) {
             return a / b;
         } else {
-            throw new ArithmeticException("На ноль нельзя");
+            throw new ArithmeticException("Division by zero is undefined");
         }
     }
 
