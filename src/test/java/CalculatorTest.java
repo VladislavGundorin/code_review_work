@@ -9,8 +9,6 @@ class CalculatorTest {
         int result = calculator.add(5, 3);
         assertEquals(8, result, "Addition result should be 8");
 
-        int result = calculator.add(10, 4);
-        assertEquals(14, result, "Addition result should be 14");
     }
 
     @Test
@@ -20,8 +18,6 @@ class CalculatorTest {
         int result = calculator.dif(5, 3);
         assertEquals(2, result, "Subtraction result should be 2");
 
-        int result = calculator.dif(10, 4);
-        assertEquals(6, result, "Subtraction result should be 6");
 
     }
 
@@ -32,16 +28,11 @@ class CalculatorTest {
         int result = calculator.div(6, 2);
         assertEquals(3, result, "Division result should be 3");
 
-        int result = calculator.div(12, 3);
-        assertEquals(4, result, "Division result should be 4");
-
     }
 
     @Test
     void divByZero() {
         Calculator calculator = new Calculator();
-
-        assertThrows(ArithmeticException.class, () -> calculator.div(6, 0),
 
         assertThrows(ArithmeticException.class, () -> calculator.div(10, 0),
 
@@ -55,9 +46,6 @@ class CalculatorTest {
         int result = calculator.times(5, 3);
         assertEquals(15, result, "Multiplication result should be 15");
 
-        int result = calculator.times(10, 4);
-        assertEquals(40, result, "Multiplication result should be 40");
-
     }
 
     @Test
@@ -66,8 +54,6 @@ class CalculatorTest {
         int result = calculator.solver();
 
         assertEquals(18, result, "Solver result should be 18");
-
-        assertEquals(47, result, "Solver result should be 46");
 
     }
 }
