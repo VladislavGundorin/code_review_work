@@ -11,7 +11,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]  
+        java: [11, 13, 17]
   
 
     steps:
@@ -21,8 +26,8 @@ jobs:
       - name: Set up JDK ${{ matrix.java }} 
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'temurin' 
+          java-version: ${{ matrix.java }}
+          distribution: 'adopt' 
           platform: ${{ matrix.os }}
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
